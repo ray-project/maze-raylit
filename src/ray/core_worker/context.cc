@@ -163,6 +163,10 @@ const std::unordered_map<std::string, std::string>
   return override_environment_variables_;
 }
 
+const std::string &WorkerContext::GetStreamlitScriptPath() const {
+  return streamlit_script_path_;
+}
+
 void WorkerContext::SetCurrentJobId(const JobID &job_id) {
   RAY_CHECK(!RayConfig::instance().enable_multi_tenancy());
   current_job_id_ = job_id;
@@ -195,6 +199,7 @@ void WorkerContext::SetCurrentTask(const TaskSpecification &task_spec) {
     current_actor_placement_group_id_ = task_spec.PlacementGroupBundleId().first;
     placement_group_capture_child_tasks_ = task_spec.PlacementGroupCaptureChildTasks();
     override_environment_variables_ = task_spec.OverrideEnvironmentVariables();
+    streamlit_script_path_ = task_spec.StreamlitScriptPath();
   } else if (task_spec.IsActorTask()) {
     if (!RayConfig::instance().enable_multi_tenancy()) {
       RAY_CHECK(current_job_id_ == task_spec.JobId());

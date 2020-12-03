@@ -198,6 +198,11 @@ TaskSpecification::OverrideEnvironmentVariables() const {
   return MapFromProtobuf(message_->override_environment_variables());
 }
 
+const std::string TaskSpecification::StreamlitScriptPath() const {
+  RAY_CHECK(IsActorCreationTask());
+  return message_->actor_creation_task_spec().streamlit_script_path();
+}
+
 bool TaskSpecification::IsDriverTask() const {
   return message_->type() == TaskType::DRIVER_TASK;
 }

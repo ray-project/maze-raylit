@@ -423,7 +423,8 @@ class ActorClass:
                 placement_group=None,
                 placement_group_bundle_index=-1,
                 placement_group_capture_child_tasks=None,
-                override_environment_variables=None):
+                override_environment_variables=None,
+                streamlit_script_path=None):
         """Configures and overrides the actor instantiation parameters.
 
         The arguments are the same as those that can be passed
@@ -465,7 +466,8 @@ class ActorClass:
                     placement_group_capture_child_tasks=(
                         placement_group_capture_child_tasks),
                     override_environment_variables=(
-                        override_environment_variables))
+                        override_environment_variables),
+                    streamlit_script_path=streamlit_script_path)
 
         return ActorOptionWrapper()
 
@@ -486,7 +488,8 @@ class ActorClass:
                 placement_group=None,
                 placement_group_bundle_index=-1,
                 placement_group_capture_child_tasks=None,
-                override_environment_variables=None):
+                override_environment_variables=None,
+                streamlit_script_path=None):
         """Create an actor.
 
         This method allows more flexibility than the remote method because
@@ -526,6 +529,8 @@ class ActorClass:
             override_environment_variables: Environment variables to override
                 and/or introduce for this actor.  This is a dictionary mapping
                 variable names to their values.
+            streamlit_script_path: (optional, str) Path to Streamlit script to
+                run for this actor.
 
         Returns:
             A handle to the newly created actor.
@@ -674,7 +679,8 @@ class ActorClass:
             # Store actor_method_cpu in actor handle's extension data.
             extension_data=str(actor_method_cpu),
             override_environment_variables=override_environment_variables
-            or dict())
+            or dict(),
+            streamlit_script_path=streamlit_script_path or "")
 
         actor_handle = ActorHandle(
             meta.language,

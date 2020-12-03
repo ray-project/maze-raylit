@@ -37,6 +37,8 @@ class WorkerContext {
 
   const PlacementGroupID &GetCurrentPlacementGroupId() const;
 
+  const std::string &GetStreamlitScriptPath() const;
+
   bool ShouldCaptureChildTasksInPlacementGroup() const;
 
   const std::unordered_map<std::string, std::string>
@@ -101,6 +103,8 @@ class WorkerContext {
   bool placement_group_capture_child_tasks_;
   // The environment variable overrides for the current actor or task.
   std::unordered_map<std::string, std::string> override_environment_variables_;
+  // The path to the Streamlit script for the current actor.
+  std::string streamlit_script_path_ = "";
   /// The id of the (main) thread that constructed this worker context.
   boost::thread::id main_thread_id_;
 

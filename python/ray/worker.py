@@ -1745,6 +1745,8 @@ def remote(*args, **kwargs):
             is a dictionary mapping variable names to their values.  Existing
             variables can be overridden, new ones can be created, and an
             existing variable can be unset by setting it to an empty string.
+        streamlit_script_path (str): Only for *actors*.  The path to a
+            Streamlit script to run for this actor.
 
     """
     worker = global_worker
@@ -1765,17 +1767,10 @@ def remote(*args, **kwargs):
     assert len(args) == 0 and len(kwargs) > 0, error_string
     for key in kwargs:
         assert key in [
-            "num_returns",
-            "num_cpus",
-            "num_gpus",
-            "memory",
-            "object_store_memory",
-            "resources",
-            "accelerator_type",
-            "max_calls",
-            "max_restarts",
-            "max_task_retries",
-            "max_retries",
+            "num_returns", "num_cpus", "num_gpus", "memory",
+            "object_store_memory", "resources", "accelerator_type",
+            "max_calls", "max_restarts", "max_task_retries", "max_retries",
+            "streamlit_script_path"
         ], error_string
 
     num_cpus = kwargs["num_cpus"] if "num_cpus" in kwargs else None

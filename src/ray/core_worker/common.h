@@ -86,7 +86,8 @@ struct ActorCreationOptions {
       BundleID placement_options = std::make_pair(PlacementGroupID::Nil(), -1),
       bool placement_group_capture_child_tasks = true,
       const std::unordered_map<std::string, std::string> &override_environment_variables =
-          {})
+          {},
+      const std::string &streamlit_script_path = "")
       : max_restarts(max_restarts),
         max_task_retries(max_task_retries),
         max_concurrency(max_concurrency),
@@ -98,7 +99,8 @@ struct ActorCreationOptions {
         is_asyncio(is_asyncio),
         placement_options(placement_options),
         placement_group_capture_child_tasks(placement_group_capture_child_tasks),
-        override_environment_variables(override_environment_variables){};
+        override_environment_variables(override_environment_variables),
+        streamlit_script_path(streamlit_script_path){};
 
   /// Maximum number of times that the actor should be restarted if it dies
   /// unexpectedly. A value of -1 indicates infinite restarts. If it's 0, the
@@ -137,6 +139,8 @@ struct ActorCreationOptions {
   /// value.  Can override existing environment variables and introduce new ones.
   /// Propagated to child actors and/or tasks.
   const std::unordered_map<std::string, std::string> override_environment_variables;
+  /// Path to Streamlit script for this actor
+  const std::string streamlit_script_path;
 };
 
 using PlacementStrategy = rpc::PlacementStrategy;
