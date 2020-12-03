@@ -1,4 +1,4 @@
-**THIS IS A HACKATHON PROJECT EXPLORING THE INTEGRATION BETWEEN RAY AND STEAMLIT**
+**THIS IS A HACKATHON PROJECT EXPLORING THE INTEGRATION BETWEEN RAY AND STREAMLIT**
 
 .. image:: https://github.com/ray-project/ray/raw/master/doc/source/images/ray_header_logo.png
 
