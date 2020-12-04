@@ -203,6 +203,8 @@ const Actor: React.FC<ActorProps> = ({ actor }) => {
           )}
         </React.Fragment>
       )}
+      { isFullActorInfo(actor) && actor.streamlitPort && <iframe src={`http://localhost:${actor.streamlitPort}`} width={"500px"} height={"500px"} title={`actor-${actor.actorId}`} >
+      </iframe>}
     </div>
   );
 };

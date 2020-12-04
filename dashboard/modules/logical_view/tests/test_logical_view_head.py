@@ -148,8 +148,9 @@ def test_streamlit_actor(ray_start_with_dashboard):
             return {"foo": 1, "bar": 2}
 
     # Starting actor A should trigger creation of a streamlit process.
-    a = ActorA.options(name="ActorA").remote()  # noqa
-
+    # a = ActorA.options(name="ActorA", 
+    #                    streamlit_script_path="/Users/maxfitton/Development/ray/ray_streamlit_actor.py").remote()  # noqa
+    a = ActorA.remote()
     def check_streamlit_server_running():
         proc_names = [proc.name().lower() for proc in psutil.process_iter()]
         if any(["streamlit" in name for name in proc_names]):
@@ -157,7 +158,7 @@ def test_streamlit_actor(ray_start_with_dashboard):
         else:
             raise ValueError(
                 "Able to fetch processes but streamlit not present.")
-    t_end = datetime.now() + timedelta(seconds=5)
+    t_end = datetime.now() + timedelta(seconds=15)
 
     while datetime.now() < t_end:
         try:
