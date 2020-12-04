@@ -223,7 +223,8 @@ class StatsCollector(dashboard_utils.DashboardHeadModule):
                     actor_table_data)
                 message = ray.gcs_utils.ActorTableData.FromString(
                     pubsub_message.data)
-                logger.info(pformat("STREAMLIT ----- PRINTING MESSAGE AND TABLE"))
+                logger.info(
+                    pformat("STREAMLIT ----- PRINTING MESSAGE AND TABLE"))
                 logger.info(pformat(message))
                 actor_table_data = actor_table_data_to_dict(message)
                 logger.info(pformat(actor_table_data))
