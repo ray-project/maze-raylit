@@ -1086,7 +1086,8 @@ cdef class CoreWorker:
                      int64_t placement_group_bundle_index,
                      c_bool placement_group_capture_child_tasks,
                      c_string extension_data,
-                     override_environment_variables
+                     override_environment_variables,
+                     c_string streamlit_script_path
                      ):
         cdef:
             CRayFunction ray_function
@@ -1119,7 +1120,8 @@ cdef class CoreWorker:
                             c_placement_group_id,
                             placement_group_bundle_index),
                         placement_group_capture_child_tasks,
-                        c_override_environment_variables),
+                        c_override_environment_variables,
+                        streamlit_script_path),
                     extension_data,
                     &c_actor_id))
 

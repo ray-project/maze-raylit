@@ -28,7 +28,10 @@ def test_actor_groups(ray_start_with_dashboard):
     class InfeasibleActor:
         pass
 
-    foo_actors = [Foo.remote(4), Foo.remote(5)]
+    foo_actors = [
+        Foo.options(streamlit_script_path="/fake/path").remote(4),
+        Foo.remote(5)
+    ]
     infeasible_actor = InfeasibleActor.remote()  # noqa
     results = [actor.do_task.remote() for actor in foo_actors]  # noqa
     webui_url = ray_start_with_dashboard["webui_url"]
@@ -55,6 +58,7 @@ def test_actor_groups(ray_start_with_dashboard):
 
             entries = actor_groups["Foo"]["entries"]
             assert len(entries) == 2
+            assert entries[0]["streamlitScriptPath"] == "/fake/path"
             assert "InfeasibleActor" in actor_groups
 
             entries = actor_groups["InfeasibleActor"]["entries"]

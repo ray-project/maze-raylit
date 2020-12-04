@@ -262,7 +262,8 @@ cdef extern from "ray/core_worker/common.h" nogil:
             c_pair[CPlacementGroupID, int64_t] placement_options,
             c_bool placement_group_capture_child_tasks,
             const unordered_map[c_string, c_string]
-            &override_environment_variables)
+            &override_environment_variables,
+            c_string &streamlit_script_path)
 
     cdef cppclass CPlacementGroupCreationOptions \
             "ray::PlacementGroupCreationOptions":

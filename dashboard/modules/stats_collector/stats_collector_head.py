@@ -5,7 +5,6 @@ import json
 import aiohttp.web
 from aioredis.pubsub import Receiver
 from grpc.experimental import aio as aiogrpc
-
 import ray.gcs_utils
 import ray.new_dashboard.modules.stats_collector.stats_collector_consts \
     as stats_collector_consts
@@ -223,6 +222,7 @@ class StatsCollector(dashboard_utils.DashboardHeadModule):
                     actor_table_data)
                 message = ray.gcs_utils.ActorTableData.FromString(
                     pubsub_message.data)
+
                 actor_table_data = actor_table_data_to_dict(message)
                 _process_actor_table_data(actor_table_data)
                 actor_id = actor_table_data["actorId"]

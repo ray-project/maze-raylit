@@ -133,6 +133,8 @@ class TaskSpecification : public MessageWrapper<rpc::TaskSpec> {
 
   std::unordered_map<std::string, std::string> OverrideEnvironmentVariables() const;
 
+  const std::string StreamlitScriptPath() const;
+
   bool IsDriverTask() const;
 
   Language GetLanguage() const;

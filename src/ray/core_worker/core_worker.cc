@@ -1381,7 +1381,8 @@ Status CoreWorker::CreateActor(const RayFunction &function,
                                    actor_creation_options.dynamic_worker_options,
                                    actor_creation_options.max_concurrency,
                                    actor_creation_options.is_detached, actor_name,
-                                   actor_creation_options.is_asyncio, extension_data);
+                                   actor_creation_options.is_asyncio, extension_data,
+                                   actor_creation_options.streamlit_script_path);
 
   // Add the actor handle before we submit the actor creation task, since the
   // actor handle must be in scope by the time the GCS sends the
