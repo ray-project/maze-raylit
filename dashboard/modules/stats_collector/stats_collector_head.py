@@ -5,7 +5,6 @@ import json
 import aiohttp.web
 from aioredis.pubsub import Receiver
 from grpc.experimental import aio as aiogrpc
-from pprint import pprint, pformat
 import ray.gcs_utils
 import ray.new_dashboard.modules.stats_collector.stats_collector_consts \
     as stats_collector_consts
