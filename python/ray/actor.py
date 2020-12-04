@@ -581,8 +581,9 @@ class ActorClass:
                     "a different name or get the existing actor using "
                     f"ray.get_actor('{name}')")
 
-        if name is None and streamlit_script_path is not None:
-            name = 'TODO(architkulkarni): Implement UID here'
+
+#        if name is None and streamlit_script_path is not None:
+#            name = 'TODO(architkulkarni): Implement UID here'
         if lifetime is None:
             detached = False
         elif lifetime == "detached":
