@@ -48,11 +48,11 @@ class LogicalViewHead(dashboard_utils.DashboardHeadModule):
             "/Users/maxfitton/Development/ray/ray_streamlit_actor.py", "--",
             "--actor-name=ActorA"
         ]
-        proc = subprocess.run(streamlit_command, capture_output=True)
-        logger.info(f"PROCESS={proc.__dict__}")
-        logger.info(f"PROCESS OUTPUT LOG = {proc.stdout}")
-        logger.info(f"PROCESS OUTPUT ERR = {proc.stderr}")
-        self.streamlit_servers[actor_id] = proc
+        proc = subprocess.Popen(streamlit_command)
+        # logger.info(f"PROCESS={proc.__dict__}")
+        # logger.info(f"PROCESS OUTPUT LOG = {proc.stdout}")
+        # logger.info(f"PROCESS OUTPUT ERR = {proc.stderr}")
+        self.streamlit_servers[actor_id] = (port_number, proc)
 
     def stop_streamlit_server(self, actor_id, actor):
         logger.info("Killing a streamlit server")
