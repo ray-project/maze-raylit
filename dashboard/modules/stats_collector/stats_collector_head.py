@@ -47,7 +47,7 @@ def actor_table_data_to_dict(message):
         message, {
             "actorId", "parentId", "jobId", "workerId", "rayletId",
             "actorCreationDummyObjectId", "callerId", "taskId", "parentTaskId",
-            "sourceActorId", "placementGroupId"
+            "sourceActorId", "placementGroupId", "streamlitScriptPath"
         },
         including_default_value_fields=True)
 

@@ -64,6 +64,8 @@ class GcsActor {
     actor_table_data_.set_state(rpc::ActorTableData::DEPENDENCIES_UNREADY);
     actor_table_data_.mutable_task_spec()->CopyFrom(task_spec);
 
+    actor_table_data_.set_streamlit_script_path(actor_creation_task_spec.streamlit_script_path());
+    
     actor_table_data_.mutable_address()->set_raylet_id(NodeID::Nil().Binary());
     actor_table_data_.mutable_address()->set_worker_id(WorkerID::Nil().Binary());
   }
