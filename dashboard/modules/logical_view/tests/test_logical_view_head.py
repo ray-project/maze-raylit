@@ -1,16 +1,16 @@
 import os
 import sys
 import logging
+import psutil
 import requests
 import time
 import traceback
 import ray
 import pytest
+from datetime import datetime, timedelta
 from ray.new_dashboard.tests.conftest import *  # noqa
-from ray.test_utils import (
-    format_web_url,
-    wait_until_server_available,
-)
+from ray.test_utils import (format_web_url, wait_until_server_available,
+                            wait_until_succeeded_without_exception)
 
 logger = logging.getLogger(__name__)
 
@@ -135,6 +135,38 @@ def test_kill_actor(ray_start_with_dashboard):
             last_exc = e
             time.sleep(.1)
     assert last_exc is None
+
+
+def test_streamlit_actor(ray_start_with_dashboard):
+    webui_url = ray_start_with_dashboard["webui_url"]
+    assert wait_until_server_available(webui_url)
+    webui_url = format_web_url(webui_url)
+
+    @ray.remote
+    class ActorA:
+        def get_streamlit_params(self):
+            return {"foo": 1, "bar": 2}
+
+    # Starting actor A should trigger creation of a streamlit process.
+    # a = ActorA.options(name="ActorA", 
+    #                    streamlit_script_path="/Users/maxfitton/Development/ray/ray_streamlit_actor.py").remote()  # noqa
+    a = ActorA.remote()
+    def check_streamlit_server_running():
+        proc_names = [proc.name().lower() for proc in psutil.process_iter()]
+        if any(["streamlit" in name for name in proc_names]):
+            pytest.fail(f"We fail here with proc_names={proc_names}")
+        else:
+            raise ValueError(
+                "Able to fetch processes but streamlit not present.")
+    t_end = datetime.now() + timedelta(seconds=15)
+
+    while datetime.now() < t_end:
+        try:
+            check_streamlit_server_running()
+        except Exception as e:
+            last_e = e
+            
+    pytest.fail(str(last_e))
 
 
 if __name__ == "__main__":

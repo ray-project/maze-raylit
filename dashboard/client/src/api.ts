@@ -223,6 +223,7 @@ export type FullActorInfo = {
     | ActorState.Dead
     | ActorState.DependenciesUnready
     | ActorState.PendingCreation;
+  streamlitPort?: number;
   taskQueueLength?: number;
   gpus: GPUStats[]; // Contains info about any GPUs the actor is using
   timestamp: number;
