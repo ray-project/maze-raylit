@@ -5,7 +5,7 @@ import json
 import aiohttp.web
 from aioredis.pubsub import Receiver
 from grpc.experimental import aio as aiogrpc
-
+from pprint import pprint, pformat
 import ray.gcs_utils
 import ray.new_dashboard.modules.stats_collector.stats_collector_consts \
     as stats_collector_consts
@@ -47,7 +47,7 @@ def actor_table_data_to_dict(message):
         message, {
             "actorId", "parentId", "jobId", "workerId", "rayletId",
             "actorCreationDummyObjectId", "callerId", "taskId", "parentTaskId",
-            "sourceActorId", "placementGroupId", "streamlitScriptPath"
+            "sourceActorId", "placementGroupId"
         },
         including_default_value_fields=True)
 
@@ -223,7 +223,10 @@ class StatsCollector(dashboard_utils.DashboardHeadModule):
                     actor_table_data)
                 message = ray.gcs_utils.ActorTableData.FromString(
                     pubsub_message.data)
+                logger.info(pformat("STREAMLIT ----- PRINTING MESSAGE AND TABLE"))
+                logger.info(pformat(message))
                 actor_table_data = actor_table_data_to_dict(message)
+                logger.info(pformat(actor_table_data))
                 _process_actor_table_data(actor_table_data)
                 actor_id = actor_table_data["actorId"]
                 job_id = actor_table_data["jobId"]
